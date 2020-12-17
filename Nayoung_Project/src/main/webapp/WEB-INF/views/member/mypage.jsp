@@ -132,7 +132,7 @@ button {
 			<ul>
 				<li><a id="a" href="/mypageFrm">마이페이지</a></li>
 				<li><a href="/shop/orderList">주문내역</a></li>
-				<li><a href="/messageFrm">문의내역</a></li>
+				
 			</ul>
 		</div>
 	</div>

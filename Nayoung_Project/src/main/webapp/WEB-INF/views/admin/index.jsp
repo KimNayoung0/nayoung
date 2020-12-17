@@ -45,21 +45,21 @@
 		<div class="flex ">
 
 			<div>
-				<span class="icon fa-car"></span>
-				<h3>Aliquam</h3>
-				<p>Suspendisse amet ullamco</p>
+				<span class="icon fa-shopping-cart"></span>
+				<h3>shop</h3>
+				<p>Let's overcome corona</p>
 			</div>
 
 			<div>
-				<span class="icon fa-camera"></span>
-				<h3>Elementum</h3>
-				<p>Class aptent taciti ad litora</p>
+				<span class="icon fa-pencil-square-o"></span>
+				<h3>notice</h3>
+				<p>Communication board</p>
 			</div>
 
 			<div>
-				<span class="icon fa-bug"></span>
-				<h3>Ultrices</h3>
-				<p>Nulla vitae mauris non felis</p>
+				<span class="icon fa-envelope"></span>
+				<h3>nayoung</h3>
+				<p>kimna0088@gmail.com</p>
 			</div>
 
 		</div>
@@ -84,9 +84,7 @@
 			</h3>
 			</header>
 			<p>
-				Morbi in sem quis dui placerat ornare. Pellentesquenisi<br />euismod
-				in, pharetra a, ultricies in diam sed arcu. Cras<br />consequat
-				egestas augue vulputate.
+				Space to communicate.
 			</p>
 			<footer> <a href="/boardList?currentPage=1" class="button">Learn
 				More</a> </footer> </article>
@@ -101,9 +99,7 @@
 			</h3>
 			</header>
 			<p>
-				Pellentesque fermentum dolor. Aliquam quam lectus<br />facilisis
-				auctor, ultrices ut, elementum vulputate, nunc<br /> blandit
-				ellenste egestagus commodo.
+				Wearing a mask is mandatory.
 			</p>
 			<footer> <a href="/shop/list?gdsCate=마스크" class="button">Learn
 				More</a> </footer> </article>
