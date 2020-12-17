@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="member">
+
+	<insert id="insertMember" parameterType="m">
+		insert into MEMBER
+		values(#{userId},#{userPw},#{userName},#{userPhon},#{userEmail},#{userAddr1},SYSDATE,0,#{userAddr2},#{userAddr3})
+	</insert>
+
+	<select id="checkId" parameterType="string" resultType="m">
+		select
+		USERID as userId,
+		USERPW as userPw,
+		USERNAME as userName,
+		USERPHON as
+		userPhon,
+		USEREMAIL as userEmail,
+		USERADDR1 as userAddr1,
+		USERADDR2 as userAddr2,
+		USERADDR3 as userAddr3,
+		REGDATE as
+		regDate
+		from member
+		where USERID=#{_parameter}
+	</select>
+
+	<select id="memberLogin" parameterType="m" resultType="m">
+		SELECT
+		USERID as userId,
+		USERPW as userPw,
+		USERNAME as userName,
+		USERPHON as
+		userPhon,
+		USEREMAIL as userEmail,
+		USERADDR1 as userAddr1,
+		USERADDR2 as userAddr2,
+		USERADDR3 as userAddr3,
+		REGDATE as
+		regDate,
+		VERIFY as verify
+		FROM MEMBER
+		WHERE USERID=#{userId} AND
+		USERPW=#{userPw}
+	</select>
+
+
+	<select id="Mail_Pwd" resultType="map" parameterType="HashMap">
+		SELECT
+		USEREMAIL as userEmail,
+		USERPW as userPw
+		FROM MEMBER
+		WHERE
+		USERNAME=#{userName} AND USERPHON=#{userPhon} AND
+		USERID=#{userId}
+	</select>
+
+	<select id="Mail_Id" resultType="map" parameterType="HashMap">
+		SELECT
+		USEREMAIL as userEmail,
+		USERID as userId
+		FROM MEMBER
+		WHERE
+		USERNAME=#{userName} AND USERPHON=#{userPhon}
+	</select>
+
+	<update id="updateMember" parameterType="m">
+		UPDATE MEMBER SET
+		USERPW=#{userPw}, USERNAME=#{userName}, USERPHON=#{userPhon},
+		USEREMAIL=#{userEmail}, USERADDR1=#{userAddr1},USERADDR2=#{userAddr2},USERADDR3=#{userAddr3}
+		WHERE USERID=#{userId}
+	</update>
+
+	<delete id="deleteMember" parameterType="m">
+		DELETE FROM MEMBER WHERE
+		USERID=#{userId}
+	</delete>
+
+
+
+
+	<select id="memberAll" resultType="m">
+		SELECT
+		USERID AS userId,
+		USERNAME AS userName,
+		USERPHON AS userPhon,
+		USEREMAIL AS userEmail,
+		USERADDR1 as userAddr1,
+		USERADDR2 as userAddr2,
+		USERADDR3 as userAddr3,
+		REGDATE AS regDate,
+		VERIFY AS verify
+		FROM MEMBER
+	</select>
+
+	<select id="totalMemberCount" resultType="_int"
+		parameterType="String">
+		SELECT COUNT(*) AS CNT
+		FROM MEMBER
+		WHERE USERID LIKE
+		'%'||#{_parameter}||'%'
+	</select>
+
+	<select id="searchList" parameterType="map" resultType="m">
+		SELECT *
+		FROM(SELECT ROWNUM AS NUM, M.*
+		FROM(SELECT
+		USERID AS userId,
+		USERNAME AS
+		userName,
+		USERPHON AS userPhon,
+		USEREMAIL AS userEmail,
+		USERADDR1 as userAddr1,
+		USERADDR2 as userAddr2,
+		USERADDR3 as userAddr3,
+		REGDATE AS regDate,
+		VERIFY AS verify
+		FROM MEMBER
+		WHERE USERID
+		LIKE '%'||#{keyword}||'%'
+		ORDER BY
+		REGDATE DESC)M)
+		WHERE NUM BETWEEN
+		#{start} AND #{end}
+	</select>
+
+
+
+
+</mapper>

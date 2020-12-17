@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="admin">
+
+
+	<!-- 상품등록 -->
+	<insert id="insertGds">
+		INSERT INTO
+		GOODS(GDSCODE,GDSCATE,GDSNAME,GDSPRICE,GDSSTOCK,GDSIMG,GDSDETAIL,GDSDATE,GDSTHUMBIMG)
+		VALUES(seq_GOODS.NEXTVAL,#{gdsCate},#{gdsName},#{gdsPrice},#{gdsStock},#{gdsImg},#{gdsDetail},SYSDATE,#{gdsThumbImg})
+	</insert>
+
+	<!-- 상품 목록 -->
+	<select id="goodsList" resultType="gds">
+		SELECT
+		GDSCODE AS gdsCode,
+		GDSCATE AS gdsCate,
+		GDSNAME AS gdsName,
+		GDSPRICE AS gdsPrice,
+		GDSSTOCK AS
+		gdsStock,
+		GDSIMG AS gdsImg,
+		GDSDETAIL AS gdsDetail,
+		GDSDATE AS gdsDate,
+		GDSSELL AS gdsSell,
+		GDSTHUMBIMG AS gdsThumbImg
+		FROM GOODS
+		ORDER BY
+		GDSCODE DESC
+	</select>
+
+	<!-- 상품 상세 목록 -->
+	<select id="goodsView" resultType="gds">
+		SELECT
+		GDSCODE AS gdsCode,
+		GDSCATE AS gdsCate,
+		GDSNAME AS gdsName,
+		GDSPRICE AS gdsPrice,
+		GDSSTOCK AS
+		gdsStock,
+		GDSIMG AS gdsImg,
+		GDSDETAIL AS gdsDetail,
+		GDSDATE AS gdsDate,
+		GDSSELL AS gdsSell,
+		GDSTHUMBIMG AS gdsThumbImg
+		FROM GOODS
+		WHERE GDSCODE =
+		#{gdsCode}
+	</select>
+
+	<update id="goodsModify">
+		UPDATE GOODS
+		SET GDSCATE =#{gdsCate},
+		GDSNAME =
+		#{gdsName},
+		GDSPRICE = #{gdsPrice},
+		GDSSTOCK = #{gdsStock},
+		GDSIMG =
+		#{gdsImg},
+		GDSTHUMBIMG =#{gdsThumbImg},
+		GDSDETAIL =#{gdsDetail}
+		WHERE
+		GDSCODE = #{gdsCode}
+	</update>
+
+	<delete id="goodsDelete">
+		DELETE GOODS WHERE GDSCODE = #{gdsCode}
+	</delete>
+
+	<!-- 모든 유저의 주문 목록 -->
+	<select id="orderList" resultType="o">
+	SELECT
+	OCODE, USERID, ONAME,
+	OADDR1,OADDR2,OADDR3,OPHON, AMOUNT,ODATE, DELIVERY
+	FROM ORDERS
+		
+	</select>
+
+	<!-- 특정 주문 목록 -->
+	<select id="orderView" resultType="ol">
+		SELECT
+		o.oCode, o.userId,
+		o.oName, o.oAddr1,o.oAddr2,o.oAddr3,o.oPhon,o.amount, o.oDate,
+		o.delivery,
+		d.odCode,
+		d.gdsCode, d.odQt,
+		g.gdsName, g.gdsThumbImg,
+		g.gdsPrice
+		FROM ORDERS o
+		INNER JOIN ORDERS_DETAIL d ON o.oCode = d.oCode
+		INNER JOIN GOODS g ON
+		d.gdsCode = g.gdsCode
+		WHERE o.oCode = #{oCode}
+	</select>
+
+	<!-- 배송 상태 -->
+	<update id="delivery">
+		UPDATE ORDERS SET DELIVERY = #{delivery}
+		WHERE OCODE =
+		#{oCode}
+	</update>
+
+	<!-- 상품 수량 조절 -->
+	<update id="changeStock">
+		UPDATE GOODS SET GDSSTOCK = GDSSTOCK - #{gdsStock}
+		WHERE GDSCODE = #{gdsCode}
+	</update>
+
+
+
+	<update id="changeSell">
+		UPDATE GOODS SET GDSSELL = GDSSELL + #{gdsStock}
+		WHERE GDSCODE = #{gdsCode}
+	</update>
+
+</mapper>

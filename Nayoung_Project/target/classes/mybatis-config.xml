@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd" >
+<configuration>
+	<settings>
+		<setting name="jdbcTypeForNull" value="NULL" />
+	</settings>
+	<typeAliases>
+		<typeAlias type="org.ny.member.model.vo.Member" alias="m" />
+		<typeAlias type="org.ny.board.model.vo.Board" alias="b" />
+		<typeAlias type="org.ny.board.model.vo.B_File" alias="bf" />
+		<typeAlias type="org.ny.board.model.vo.B_Comment" alias="bc" />
+		<typeAlias type="org.ny.board.model.vo.Search" alias="s" />
+		<typeAlias type="org.ny.member.model.vo.Search" alias="ms" />
+		<typeAlias type="org.ny.shop.model.vo.Cart" alias="c" />
+		<typeAlias type="org.ny.shop.model.vo.Goods" alias="gds" />
+		<typeAlias type="org.ny.shop.model.vo.Orders" alias="o" />
+		<typeAlias type="org.ny.shop.model.vo.OrdersDetail"
+			alias="od" />
+		<typeAlias type="org.ny.shop.model.vo.WishList" alias="wl" />
+		<typeAlias type="org.ny.shop.model.vo.CartList" alias="cl" />
+		<typeAlias type="org.ny.shop.model.vo.OrderList" alias="ol" />
+
+	</typeAliases>
+</configuration>

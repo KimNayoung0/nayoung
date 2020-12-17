@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="board">
+
+
+	<select id="totalBoardCount" resultType="_int"
+		parameterType="String">
+		SELECT COUNT(*) AS CNT
+		FROM BOARD
+		WHERE BTITLE LIKE
+		'%'||#{_parameter}||'%'
+	</select>
+
+	<select id="searchList" parameterType="map" resultType="b">
+		SELECT *
+		FROM(SELECT ROWNUM AS NUM, B.*
+		FROM(SELECT
+		BCODE AS bCode,
+		BTITLE AS
+		bTitle,
+		BWRITER AS bWriter,
+		BREGDATE AS bRegDate,
+		BHIT AS bHit,
+		BSECRET as
+		bSecret,
+		BPW AS bPw
+		FROM BOARD
+		WHERE BTITLE LIKE '%'||#{keyword}||'%'
+		ORDER BY
+		BREGDATE DESC)B)
+		WHERE NUM BETWEEN #{start} AND #{end}
+	</select>
+
+
+
+	<select id="boardSelect" parameterType="map" resultType="map">
+		SELECT
+		BCODE as bCode,
+		BTITLE as bTitle,
+		BWRITER as bWriter,
+		BCONTENT as
+		bContent,
+		BREGDATE as bRegDate,
+		BSECRET as bSecret,
+		BPW as bPw
+		FROM BOARD
+		WHERE
+		BCODE=#{bCode} 
+	</select>
+
+	<select id="selectFile" parameterType="int" resultType="hashMap">
+		SELECT
+		FCODE AS fCode,
+		ORGFILENAME AS orgFileName,
+		ROUND(FILESIZE/1024,1) AS
+		fileSize
+		FROM B_FILE
+		WHERE BCODE = #{bCode}
+		AND DELGB = 'N'
+		ORDER BY FCODE
+		ASC
+	</select>
+
+
+
+	<insert id="insertBoard" parameterType="b"
+		useGeneratedKeys="true" keyProperty="bCode">
+		<selectKey keyProperty="bCode" resultType="int"
+			order="BEFORE">
+			SELECT seq_BOARD.NEXTVAL FROM DUAL
+		</selectKey>
+		INSERT INTO
+		BOARD
+		VALUES(#{bCode},#{bTitle},#{bWriter},#{bContent},#{bSecret},SYSDATE,#{bPw},#{bHit})
+	</insert>
+
+
+
+	<insert id="insertFile" parameterType="hashMap">
+		INSERT INTO B_FILE(FCODE,
+		BCODE, ORGFILENAME, STOREDFILENAME, FILESIZE, REGDATE)
+		VALUES(seq_B_FILE.NEXTVAL,#{bCode},#{orgFileName},#{storedFileName},#{fileSize},SYSDATE)
+	</insert>
+
+	<update id="boardHit" parameterType="int">
+		UPDATE BOARD
+		SET
+		BHIT = BHIT+1
+		WHERE BCODE = #{bCode}
+	</update>
+
+
+	<insert id="insertComment" parameterType="bc">
+		INSERT INTO B_COMMENT
+		VALUES(seq_B_COMMENT.NEXTVAL,#{bCode},#{coWriter},#{coContent},SYSDATE)
+	</insert>
+
+
+	<select id="selectComment" parameterType="int" resultType="bc">
+		SELECT
+		COCODE as coCode,
+		BCODE as bCode,
+		COWRITER as coWriter,
+		COCONTENT
+		as coContent,
+		COREGDATE as coRegDate
+		FROM B_COMMENT
+		WHERE
+		BCODE = #{bCode}
+	</select>
+
+
+
+	<delete id="deleteComment" parameterType="bc"><!-- 댓글 삭제 -->
+		DELETE FROM B_COMMENT
+		WHERE COCODE = #{coCode}
+	</delete>
+
+	<!-- 파일 다운로드 -->
+	<select id="fileDown" parameterType="hashMap"
+		resultType="hashMap">
+		SELECT
+		STOREDFILENAME as storedFileName,
+		ORGFILENAME as
+		orgFileName
+		FROM B_FILE
+		WHERE FCODE = #{fCode}
+	</select>
+
+
+	<update id="boardUpdate" parameterType="b">
+		UPDATE BOARD
+		SET
+		BTITLE =
+		#{bTitle},
+		BCONTENT = #{bContent},
+		BSECRET = #{bSecret},
+		BPW = #{bPw}
+		WHERE
+		BCODE = #{bCode}
+	</update>
+
+	<update id="commentUpdate" parameterType="bc">
+		UPDATE B_COMMENT
+		SET
+		COCONTENT = #{coContent}
+		WHERE COCODE=#{coCode}
+	</update>
+
+	<delete id="boardDelete" parameterType="b">
+		DELETE FROM BOARD
+		WHERE
+		BCODE = #{bCode}
+	</delete>
+
+	<!-- 라핑 수정하거나 삭제할 때 fCode가 무엇인가 인 것의 삭제 코드를 Y로 만들어라 N이면 보여주고 Y면 안보여주는 식 -->
+	<update id="updateFile" parameterType="map">
+		UPDATE B_FILE
+		SET DELGB =
+		'Y'
+		WHERE FCODE = #{fCode}
+	</update>
+
+</mapper>
