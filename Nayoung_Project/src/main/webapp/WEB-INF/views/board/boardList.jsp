@@ -86,7 +86,7 @@ td {
 			<table class="table table-hover">
 
 				<tr>
-					<form action="/boardList" method="post">
+					<form action="/boardList" method="post"  autocomplete="off">
 						<input type="hidden" name="currentPage" value="1">
 						<td colspan="5" align="center" class="search_td"><input
 							type="text" name="keyword" placeholder="제목을 입력하세요." id="search">

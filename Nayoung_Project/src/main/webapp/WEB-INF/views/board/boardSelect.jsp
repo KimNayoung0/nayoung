@@ -99,7 +99,7 @@ button {
 		<!--forEach는 List, 배열 요소를 순서대로 반복해서 처리할 수 있는 태그 입니다.-->
 		<!-- file List에는 FILESIZE,ORGFILENAME, FCODE 처럼 대문자로 들어가있기때문에 그에 맞춰 jstl을 작성해줘야한다. -->
 
-		<form name="readForm" role="form" method="post">
+		<form name="readForm" role="form" method="post" >
 			<input type="hidden" name="fCode" id="fCode" value="">
 		</form>
 
@@ -112,7 +112,7 @@ button {
 
 
 		<br> [댓글] <br>
-		<form action="/insertComment" method="post">
+		<form action="/insertComment" method="post"  autocomplete="off">
 			<input type="hidden" name="bCode" value="${b.BCODE }"> <input
 				type="hidden" name="coWriter" value="${sessionScope.member.userId }">
 			<input id="commentInput" type="text" name="coContent" required
@@ -135,7 +135,7 @@ button {
 
 
 				<li class="commentUpdateFrm">
-					<form action="/commentUpdate" method="post">
+					<form action="/commentUpdate" method="post"  autocomplete="off">
 						<input type="hidden" name="bCode" value="${bcList.bCode }">
 						<!-- bCode와 coCode를 꼭 써줘야함!!!!!!!! 문제는 이거였어 ! -->
 						<input type="hidden" name="coCode" value="${bcList.coCode }">

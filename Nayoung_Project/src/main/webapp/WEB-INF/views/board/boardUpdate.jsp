@@ -87,7 +87,7 @@
 
 
 		<form name="updateForm" action="/boardUpdate" method="post"
-			enctype="multipart/form-data">
+			enctype="multipart/form-data"  autocomplete="off">
 			<input type="hidden" name="bCode" value="${detail.BCODE }">
 			제목 : <input id="input" type="text" name="bTitle"
 				value="${detail.BTITLE }" required> <br> 작성자 : <input

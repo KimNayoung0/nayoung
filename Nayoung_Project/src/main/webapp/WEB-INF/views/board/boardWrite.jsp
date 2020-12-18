@@ -76,7 +76,7 @@
 
 
 		<form name="writeFrm" action="/insertBoard" method="post"
-			enctype="multipart/form-data">
+			enctype="multipart/form-data"  autocomplete="off">
 
 			제목 : <input id="input" type="text" name="bTitle" required><br>
 			작성자 : <input id="input" type="text" name="bWriter"
