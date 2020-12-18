@@ -180,12 +180,14 @@ public class AdminController {
 
 			String callback = req.getParameter("CKEditorFuncNum");
 			printWriter = res.getWriter();
-			String fileUrl = "/ckUpload/" + uid + "_" + fileName; // 작성화면
+			String fileUrl = "/ckUpload/" + uid + "_" + fileName; // 작성화면*******
 
 			// 업로드시 메시지 출력
-			printWriter.println("{\"filename\" : \"" + fileName + "\", \"uploaded\" : 1, \"url\":\"" + fileUrl + "\"}");
+			printWriter.println("{\"filename\" : \""+fileName+"\", \"uploaded\" : 1, \"url\":\""+fileUrl+"\"}");
 			printWriter.flush();
 
+			
+			
 		} catch (IOException e) {
 			e.printStackTrace();
 		} finally {

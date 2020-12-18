@@ -122,6 +122,7 @@ padding: 0 2em;
 	<%@include file="/WEB-INF/views/admin/include/footer.jsp"%>
 
 	<script>
+	
 		/* 상품등록창에 이미지 띄우기  */
 		$('#gdsImg')
 				.change(
@@ -166,7 +167,7 @@ padding: 0 2em;
 			selector.val(tempVal.replace(regExp, ""));
 		}
 		
-		
+/* 		
 		$('.gdsBtn').click(function(){
 			 if(CKEDITOR.instances.gdsDetail.getData() == '' || CKEDITOR.instances.gdsDetail.getData().length ==0){	
 					alert('내용을 입력해주세요.');
@@ -174,7 +175,7 @@ padding: 0 2em;
 					} 		
 			 return true;
 		});
-		
+		 */
 	</script>
 
 
